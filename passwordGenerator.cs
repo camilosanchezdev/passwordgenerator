@@ -6,6 +6,7 @@ namespace PasswordGenerator
     {
         static void Main(string[] args)
         {
+            // Variables
             int passLength = 0;
             char ans;
             string result;
@@ -13,75 +14,51 @@ namespace PasswordGenerator
             string capitalLetters= "ABCDEFGHJKLMNOPQRSTUVWXYZ";
             string numbers = "0123456789";
             string symbols = "!@$?_-";
-            string allCharacters = "";
-
-
+            string allCharacters = characters;
             Random rnd = new Random();
-
+            // Menu
             Console.WriteLine("Password Generator");
             Console.WriteLine("==================");
-
+            // Pass Length
             Console.WriteLine("\n\nPassword Length (1 - 36)");
             passLength = int.Parse(Console.ReadLine());
-
+            // Range check
             while (passLength < 1 || passLength > 36)
             {
                 Console.WriteLine("Out of range number");
                 Console.WriteLine("\n\nPassword Length (1 - 36)");
                 passLength = int.Parse(Console.ReadLine());
             }
-
-            char[] passDividido = new char[passLength];
-
+            // Options
+            char[] passChar = new char[passLength];
             Console.WriteLine("Include Capitals Letters? Indicate y/n");
-            char decMay = char.Parse(Console.ReadLine());
-
+            char decUpp = char.Parse(Console.ReadLine());
             Console.WriteLine("Include Numbers? Indicate y/n");
             char decNum = char.Parse(Console.ReadLine());
-
             Console.WriteLine("Include Symbols? Indicate y/n");
-            char decSig = char.Parse(Console.ReadLine());
-
-            if (decMay.Equals('n') && decNum.Equals('n') && decSig.Equals('n'))
+            char decSim = char.Parse(Console.ReadLine());
+            // Check options
+            if (decUpp.Equals('y'))
             {
-                allCharacters = characters;   
+                allCharacters += capitalLetters;
             }
-            else if (decMay.Equals('n') && decNum.Equals('n') && decSig.Equals('y'))
+            if (decNum.Equals('y'))
             {
-                allCharacters = characters + symbols;
+                allCharacters += numbers;
             }
-            else if (decMay.Equals('y') && decNum.Equals('y') && decSig.Equals('n'))
+            if (decSim.Equals('y'))
             {
-                allCharacters = characters + capitalLetters + numbers;
+                allCharacters += symbols;
             }
-            else if (decMay.Equals('y') && decNum.Equals('n') && decSig.Equals('y'))
-            {
-                allCharacters = characters + capitalLetters + symbols;
-            }
-            else if (decMay.Equals('y') && decNum.Equals('n') && decSig.Equals('n'))
-            {
-                allCharacters = characters + capitalLetters;
-            }
-
-            else if (decMay.Equals('n') && decNum.Equals('y') && decSig.Equals('y'))
-            {
-                allCharacters = characters + numbers + symbols;
-            }
-            else if (decMay.Equals('y') && decNum.Equals('y') && decSig.Equals('y'))
-            {
-                allCharacters = characters + capitalLetters + numbers + symbols;      
-            }
-            else if (decMay.Equals('n') && decNum.Equals('y') && decSig.Equals('n'))
-            {
-                allCharacters = characters + numbers;
-            }
+            // Generate password
             for (int i = 0; i < passLength; i++)
             {
-                passDividido[i] = allCharacters[rnd.Next(0, allCharacters.Length)];
+                passChar[i] = allCharacters[rnd.Next(0, allCharacters.Length)];
             }
-            result = new string(passDividido);
+            result = new string(passChar);
+            // Show password
             Console.Write("Password generated: " + result);
-            
+            // Generate another passwords
             do
             {
                 Console.WriteLine("\nIndicate 'y' to generate another password or 'n' to finish");
@@ -90,9 +67,9 @@ namespace PasswordGenerator
                 {
                     for (int i = 0; i < passLength; i++)
                     {
-                        passDividido[i] = allCharacters[rnd.Next(0, allCharacters.Length)];
+                        passChar[i] = allCharacters[rnd.Next(0, allCharacters.Length)];
                     }
-                    result = new string(passDividido);
+                    result = new string(passChar);
                     Console.Write("Password generated: " + result);
                 }    
             } while (ans == 'y');
