@@ -71,6 +71,10 @@ namespace PasswordGenerator
             {
                 allCharacters = characters + capitalLetters + numbers + symbols;      
             }
+            else if (decMay.Equals('n') && decNum.Equals('y') && decSig.Equals('n'))
+            {
+                allCharacters = characters + numbers;
+            }
             for (int i = 0; i < passLength; i++)
             {
                 passDividido[i] = allCharacters[rnd.Next(0, allCharacters.Length)];
